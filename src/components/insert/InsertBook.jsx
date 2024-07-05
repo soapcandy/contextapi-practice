@@ -1,29 +1,63 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function InsertBook({ setAddBookList }) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [content, setContent] = useState("");
+function InsertBook({ addBook, addBookList }) {
+  const [inputs, setInputs] = useState({
+    title: "",
+    author: "",
+    content: "",
+  });
+
+  const { title, author, content } = inputs;
 
   const getInsert = () => {
-    setAddBookList({ title, author, content });
+    const newBook = {
+      id: addBookList.length,
+      title,
+      author,
+      content,
+    };
+    addBook(newBook);
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
   return (
     <div>
       <div>
         <div>제목</div>
-        <input type="text" onChange={(e) => setTitle(e.target.value)}></input>
-        <div>저자</div>
-        <input type="text" onChange={(e) => setAuthor(e.target.value)}></input>
-        <div>내용</div>
         <input
+          name="title"
           type="text"
-          onChange={(e) => setContent(e.target.value)}
+          onChange={onChange}
+          value={title}
+        ></input>
+        <div>저자</div>
+        <input
+          name="author"
+          type="text"
+          onChange={onChange}
+          value={author}
+        ></input>
+        <div>내용</div>
+
+        <input
+          name="content"
+          type="text"
+          onChange={onChange}
+          value={content}
           style={{ height: "100px" }}
         ></input>
       </div>
-      <button onClick={getInsert}>제출</button>
+      <Link to={"/"}>
+        <button onClick={getInsert}>제출</button>
+      </Link>
     </div>
   );
 }

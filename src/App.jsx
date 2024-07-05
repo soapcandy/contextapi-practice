@@ -1,20 +1,33 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BookList from "./components/book/BookList";
 import InsertBook from "./components/insert/InsertBook";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [addBookList, setAddBookList] = useState([]);
 
-  console.log(addBookList);
+  const addBook = (book) => {
+    setAddBookList([...addBookList, book]);
+  };
+
+  useEffect(() => {
+    console.log("useEffect []");
+    const getBooks = JSON.parse(localStorage.getItem("books"));
+    setAddBookList(getBooks);
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect [addBookList]");
+    localStorage.setItem("books", JSON.stringify(addBookList));
+  }, [addBookList]);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<BookList />} />
+        <Route path="/" element={<BookList addBookList={addBookList} />} />
         <Route
           path="/add"
-          element={<InsertBook setAddBookList={setAddBookList} />}
+          element={<InsertBook addBook={addBook} addBookList={addBookList} />}
         />
       </Routes>
     </BrowserRouter>
