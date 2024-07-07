@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BookList from "./components/book/BookList";
-import InsertBook from "./components/insert/InsertBook";
+import BookInsert from "./components/insert/BookInsert";
 import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
   const [addBookList, setAddBookList] = useState([]);
@@ -22,15 +23,22 @@ function App() {
   }, [addBookList]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<BookList addBookList={addBookList} />} />
-        <Route
-          path="/add"
-          element={<InsertBook addBook={addBook} addBookList={addBookList} />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <div className="app-container">
+      <header className="app-header">읽은 책 목록</header>
+      <div className="app-content">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<BookList addBookList={addBookList} />} />
+            <Route
+              path="/add"
+              element={
+                <BookInsert addBook={addBook} addBookList={addBookList} />
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </div>
   );
 }
 
