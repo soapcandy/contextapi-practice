@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import BookInput from "./BookInput";
 
 function InsertBook({ addBook, addBookList }) {
   const [inputs, setInputs] = useState({
@@ -9,6 +10,7 @@ function InsertBook({ addBook, addBookList }) {
   });
 
   const { title, author, content } = inputs;
+  const navigate = useNavigate();
 
   const getInsert = () => {
     const newBook = {
@@ -18,6 +20,7 @@ function InsertBook({ addBook, addBookList }) {
       content,
     };
     addBook(newBook);
+    navigate("/");
   };
 
   const onChange = (e) => {
@@ -30,34 +33,20 @@ function InsertBook({ addBook, addBookList }) {
 
   return (
     <div>
-      <div>
-        <div>제목</div>
-        <input
-          name="title"
-          type="text"
-          onChange={onChange}
-          value={title}
-        ></input>
-        <div>저자</div>
-        <input
-          name="author"
-          type="text"
-          onChange={onChange}
-          value={author}
-        ></input>
-        <div>내용</div>
+      <BookInput name="제목" value={title} onChange={onChange} />
+      <BookInput name="저자" value={author} onChange={onChange} />
 
-        <input
-          name="content"
-          type="text"
-          onChange={onChange}
-          value={content}
-          style={{ height: "100px" }}
-        ></input>
-      </div>
-      <Link to={"/"}>
+      <div>내용</div>
+      <input
+        name="content"
+        type="text"
+        onChange={onChange}
+        value={content}
+        style={{ height: "100px" }}
+      ></input>
+      <div>
         <button onClick={getInsert}>제출</button>
-      </Link>
+      </div>
     </div>
   );
 }
