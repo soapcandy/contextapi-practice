@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BookInput from "./BookInput";
 import "../../styles/BookInsert.css";
+import { BookContext } from "../contexts/BookContextAPI";
 
-function InsertBook({ addBook, addBookList }) {
+function InsertBook() {
+  const { addBook, addBookList } = useContext(BookContext);
   const [inputs, setInputs] = useState({
     title: "",
     author: "",

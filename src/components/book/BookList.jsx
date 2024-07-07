@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import BookItem from "./BookItem";
 import "../../styles/BookList.css";
-function BookList({ addBookList }) {
+import { useContext } from "react";
+import { BookContext } from "../contexts/BookContextAPI";
+function BookList() {
+  const { addBookList } = useContext(BookContext);
   const navigate = useNavigate();
 
   return (
