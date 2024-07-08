@@ -4,7 +4,7 @@ import BookInput from "./BookInput";
 import "../../styles/BookInsert.css";
 import { BookContext } from "../contexts/BookContextAPI";
 
-function InsertBook() {
+function BookInsert() {
   const { addBook, addBookList } = useContext(BookContext);
   const [inputs, setInputs] = useState({
     title: "",
@@ -46,7 +46,7 @@ function InsertBook() {
       </div>
       <div className="book-content-container">
         <label>내용</label>
-        <textarea name="content" onChange={onChange} value={content}></textarea>
+        <textarea name="content" value={content} onChange={onChange}></textarea>
       </div>
       <div>
         <button className="submit-button" onClick={getInsert}>
@@ -56,4 +56,4 @@ function InsertBook() {
     </div>
   );
 }
-export default InsertBook;
+export default BookInsert;
