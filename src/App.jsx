@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BookList from "./components/book/BookList";
 import BookInsert from "./components/insert/BookInsert";
 import "./App.css";
-import { BookProvider } from "./components/contexts/BookContextAPI";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
@@ -10,12 +10,12 @@ function App() {
       <header className="app-header">읽은 책 목록</header>
       <div className="app-content">
         <BrowserRouter>
-          <BookProvider>
+          <RecoilRoot>
             <Routes>
               <Route path="/" element={<BookList />} />
               <Route path="/add" element={<BookInsert />} />
             </Routes>
-          </BookProvider>
+          </RecoilRoot>
         </BrowserRouter>
       </div>
     </div>

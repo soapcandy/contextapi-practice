@@ -1,28 +1,30 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BookInput from "./BookInput";
 import "../../styles/BookInsert.css";
-import { BookContext } from "../contexts/BookContextAPI";
+import { useRecoilState } from "recoil";
+import { bookListStateState } from "../../recoil/bookRecoil";
 
 function BookInsert() {
-  const { addBook, addBookList } = useContext(BookContext);
+  const [bookAdd, setBookAdd] = useRecoilState(bookListStateState);
+
   const [inputs, setInputs] = useState({
     title: "",
     author: "",
     content: "",
   });
-
+  console.log("bookAdd: ", bookAdd);
   const { title, author, content } = inputs;
   const navigate = useNavigate();
 
   const getInsert = () => {
     const newBook = {
-      id: addBookList.length,
+      id: bookAdd.length,
       title,
       author,
       content,
     };
-    addBook(newBook);
+    setBookAdd(newBook);
     navigate("/");
   };
 
