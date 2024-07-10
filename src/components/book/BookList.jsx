@@ -1,12 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import BookItem from "./BookItem";
 import "../../styles/BookList.css";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { bookListState } from "../../recoil/bookRecoil";
+import { useEffect } from "react";
 
 function BookList() {
-  const bookList = useRecoilValue(bookListState);
+  const [bookList, setBookList] = useRecoilState(bookListState);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getBooks = JSON.parse(localStorage.getItem("books"));
+    setBookList(getBooks);
+    console.log(bookList);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("books", JSON.stringify(bookList));
+  }, [bookList]);
 
   return (
     <div className="book-list-container">

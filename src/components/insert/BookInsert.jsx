@@ -13,7 +13,7 @@ function BookInsert() {
     author: "",
     content: "",
   });
-  console.log("bookAdd: ", bookAdd);
+
   const { title, author, content } = inputs;
   const navigate = useNavigate();
 
